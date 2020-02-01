@@ -9,7 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PainelGarcom"></activity>
+        <activity android:name=".Mesas"/>
+        <activity android:name=".Pedidos" />
+        <activity android:name=".Kioske" />
+        <activity android:name=".Comidas" />
+        <activity android:name=".Categorias" />
+        <activity android:name=".Telas_Cadastros.CadastroMesa" />
+        <activity android:name=".Bebidas" />
+        <activity android:name=".Produtos" />
+        <activity android:name=".Telas_Cadastros.CadastroProduto" />
+        <activity android:name=".PainelGarcom" />
         <activity android:name=".PainelAdmin" />
         <activity android:name=".Login" />
         <activity android:name=".MainActivity">
@@ -19,6 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Telas_Cadastros.CadastroUsuario" />
     </application>
 
 </manifest>

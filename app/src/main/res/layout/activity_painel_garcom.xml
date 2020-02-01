@@ -4,19 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4CAF50"
+    android:background="#3DA507"
     tools:context=".PainelGarcom">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnMesas"
         android:layout_width="253dp"
         android:layout_height="62dp"
         android:layout_marginStart="157dp"
         android:layout_marginTop="126dp"
         android:layout_marginEnd="166dp"
-        android:backgroundTint="#06CC4E"
-        android:text="Mesas"
-        android:textColor="#FFFFFF"
+        android:text="@string/Mesas"
+        android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

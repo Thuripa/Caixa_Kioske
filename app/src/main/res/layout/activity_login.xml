@@ -8,17 +8,19 @@
     tools:context=".Login">
 
     <EditText
-        android:id="@+id/etUsuario"
+        android:id="@+id/etEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="101dp"
         android:layout_marginTop="163dp"
         android:layout_marginEnd="97dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/usuario"
+        android:inputType="textEmailAddress"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
+        android:hint="@string/Email"
+        android:textColorHint="#FFFFFF"
+        android:importantForAutofill="no"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,12 +34,14 @@
         android:layout_marginEnd="99dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/senha"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
+        android:hint="@string/senha"
+        android:textColorHint="#FFFFFF"
+        android:importantForAutofill="no"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUsuario" />
+        app:layout_constraintTop_toBottomOf="@+id/etEmail" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -65,4 +69,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCriarUmaNovaConta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="139dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="139dp"
+        android:text="@string/Criar_uma_nova_conta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 </androidx.constraintlayout.widget.ConstraintLayout>

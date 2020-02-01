@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/menu_filtrar"
+        android:title="@string/Filtrar"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item android:id="@+id/menu_filtro_bebidas"
+                android:title="@string/Bebidas" />
+            <item android:id="@+id/menu_filtro_comidas"
+                android:title="@string/Comidas" />
+            <item android:id="@+id/menu_filtro_outros"
+                android:title="@string/outros" />
+        </menu>
+    </item>
+
+
+</menu>

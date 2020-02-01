@@ -4,18 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0C32B3"
+    android:background="#3DA507"
     tools:context=".PainelAdmin">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnMesas"
         android:layout_width="253dp"
         android:layout_height="62dp"
         android:layout_marginStart="165dp"
-        android:layout_marginTop="126dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="158dp"
-        android:text="Pedidos"
+        android:text="@string/Mesas"
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnProdutos" />
+
+    <Button
+        android:id="@+id/btnProdutos"
+        android:layout_width="253dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="165dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="158dp"
+        android:text="@string/Produtos"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPedidos" />
+
+    <Button
+        android:id="@+id/btnPedidos"
+        android:layout_width="253dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="165dp"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="158dp"
+        android:text="@string/Pedidos"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvNomeUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="334dp"
+        android:text="@string/Nome"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
