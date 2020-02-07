@@ -36,4 +36,26 @@
     <string name="Valor">Valor</string>
     <string name="Filtrar">Filtrar</string>
     <string name="Kioske">Kioske</string>
+    <string name="Caixa">Caixa</string>
+    <string name="Editar_Produto">Editar Produto</string>
+    <string name="Salvar">Salvar</string>
+    <string name="Op_es">Opções</string>
+    <string name="Excluir">Excluir</string>
+    <string name="Cancelar">Cancelar</string>
+    <string name="MensagemExcluir">Deseja realmente excluir o objeto?</string>
+    <string name="Historico">Historico</string>
+    <string name="Editar_Mesa">Editar Mesa</string>
+    <string name="Mensagem_Pedido">Selecione uma Quantidade</string>
+    <string name="Adicionar">Adicionar</string>
+    <string name="Pedir" />
+    <string name="Painel_Admin">Painel Admin</string>
+    <string name="Painel_Gar_om">Painel Garçom</string>
+    <string name="Voltar">Voltar</string>
+    <string name="R">R$</string>
+    <string name="Conta">Conta</string>
+    <string name="Dados">Dados</string>
+    <string name="Trocar_Senha">Trocar Senha</string>
+    <string name="Logout">Logout</string>
+    <string name="Cadastro_Pedido">Cadastro Pedido</string>
+    <string name="Email_dois_pontos">Email:</string>
 </resources>

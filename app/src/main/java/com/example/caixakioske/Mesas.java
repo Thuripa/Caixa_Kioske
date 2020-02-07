@@ -11,11 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.caixakioske.Adaptadores.ListenerGavetaProduto;
 import com.example.caixakioske.Modelos.GavetaMesa;
-import com.example.caixakioske.Modelos.GavetaProduto;
 import com.example.caixakioske.Modelos.Mesa;
 import com.example.caixakioske.Modelos.Produto;
-import com.example.caixakioske.Telas_Cadastros.CadastroMesa;
+import com.example.caixakioske.TelasCadastros.CadastroMesa;
+import com.example.caixakioske.TelasCadastros.EditarProduto;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,7 +26,8 @@ import com.google.firebase.database.Query;
 
 public class Mesas extends AppCompatActivity {
 
-
+    String uid;
+    String caminho;
     RecyclerView rvMesas;
     FloatingActionButton foabAdicionarMesa;
     FirebaseRecyclerAdapter adapter;
@@ -39,9 +41,14 @@ public class Mesas extends AppCompatActivity {
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 
-        // Cria Querry Pegando Todos as Mesas do DB
+        uid = getIntent().getStringExtra("uid");
+        caminho = getIntent().getStringExtra("caminho");
+
+        // Cria Querry Pegando Todos as Mesas do DB Filtrado pela UID
         Query query = rootRef
-                .child("mesas");
+                .child("mesas")
+                .orderByChild("idAtendente")
+                .equalTo("uid");
 
         // Constroi a Configuracao do Adaptador
         FirebaseRecyclerOptions<Mesa> options =
@@ -74,6 +81,26 @@ public class Mesas extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rvMesas.setLayoutManager(layoutManager);
 
+        rvMesas.addOnItemTouchListener(new ListenerGavetaProduto(this, rvMesas, new ListenerGavetaProduto.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+                Mesa mesa = getItemPosition(position);
+
+                //Toast.makeText(Bebidas.this, "Vindo de produtos", Toast.LENGTH_SHORT).show();
+                Intent editarProduto = new Intent(Mesas.this, CadastroMesa.class);
+                editarProduto.putExtra("mesa", mesa);
+                editarProduto.putExtra("caminho", "mesas");
+                startActivity(editarProduto);
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                //Toast.makeText(Kioske.this,  position+ " is PRESSED successfully", Toast.LENGTH_SHORT).show();
+            }
+        }));
+
         rvMesas.setAdapter(adapter);
         adapter.startListening();
 
@@ -86,8 +113,19 @@ public class Mesas extends AppCompatActivity {
         });
     }
 
+    private Mesa getItemPosition(int position) {
+
+        if(adapter != null) {
+            return (Mesa) adapter.getItem(position);
+        } else {
+            return null;
+        }
+
+    }
+
     public void adicionarMesa() {
         Intent intent = new Intent(this, CadastroMesa.class);
+        intent.putExtra("uid", uid);
         startActivity(intent);
     }
 
@@ -96,7 +134,15 @@ public class Mesas extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        Intent intent = new Intent(this, PainelAdmin.class);
-        startActivity(intent);
+        if(caminho.equals("painelAdmin")) {
+            Intent intent = new Intent(this, PainelAdmin.class);
+            startActivity(intent);
+        }
+        if(caminho.equals("painelGarcom")) {
+            Intent intent = new Intent(this, PainelGarcom.class);
+            startActivity(intent);
+        }
+
+
     }
 }

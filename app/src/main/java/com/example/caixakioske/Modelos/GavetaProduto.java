@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caixakioske.R;
 
-public class GavetaProduto extends RecyclerView.ViewHolder {
+public class GavetaProduto extends RecyclerView.ViewHolder{
 
     public TextView tvNomeProduto;
     public TextView tvPrecoProduto;

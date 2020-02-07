@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_opcoes"
+        android:title="@string/Op_es"
+        >
+        <menu>
+            <item android:id="@+id/menu_opcoes_salvar"
+                android:title="@string/Salvar" />
+            <item android:id="@+id/menu_opcoes_excluir"
+                android:title="@string/Excluir" />
+            <item android:id="@+id/menu_opcoes_voltar"
+                android:title="@string/Cancelar" />
+        </menu>
+    </item>
+</menu>

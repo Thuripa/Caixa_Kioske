@@ -12,7 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.caixakioske.Telas_Cadastros.CadastroUsuario;
+import com.example.caixakioske.Modelos.Usuario;
+import com.example.caixakioske.TelasCadastros.CadastroUsuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -23,7 +24,7 @@ public class Login extends AppCompatActivity {
 
     private EditText etEmail;
     private EditText etSenha;
-
+    private Usuario usuario;
     private FirebaseAuth mAuth;
 
     @Override
@@ -33,15 +34,20 @@ public class Login extends AppCompatActivity {
 
         etEmail = findViewById(R.id.etEmail);
         etSenha = findViewById(R.id.etSenha);
+        TextView tvCriarUmaNovaConta = findViewById(R.id.tvCriarUmaNovaConta);
+        Button btnLogin = findViewById(R.id.btnLogin);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        if (getIntent().getStringExtra("nome") != null) {
-            etEmail.setText(getIntent().getStringExtra("nome"));
+        usuario = getIntent().getParcelableExtra("usuario");
+
+        // Auto Completa Email Caso usuario esteja vindo do cadastro
+        if (usuario != null) {
+            etEmail.setText(usuario.getEmail());
         }
 
-        TextView tvCriarUmaNovaConta = findViewById(R.id.tvCriarUmaNovaConta);
+
 
         tvCriarUmaNovaConta.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +57,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        Button btnLogin = findViewById(R.id.btnLogin);
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,19 +82,24 @@ public class Login extends AppCompatActivity {
     private void updateUI(FirebaseUser currentUser) {
 
         if(currentUser != null) {
-
             if(currentUser.getEmail() != null){
                 if(currentUser.getEmail().equals("tainhabichoesperto@gmail.com")){
                     Intent admin = new Intent(this, PainelAdmin.class);
-                    String nome = currentUser.getDisplayName();
-                    admin.putExtra("nome", nome);
+                    Usuario user = new Usuario();
+                    user.setAdmin(true);
+                    user.setNome(currentUser.getDisplayName());
+                    user.setUid(currentUser.getUid());
+                    admin.putExtra("usuario", user);
                     startActivity(admin);
+                } else {
+                    Intent garcom = new Intent(this, PainelGarcom.class);
+                    Usuario user = new Usuario();
+                    user.setAdmin(false);
+                    user.setNome(currentUser.getDisplayName());
+                    user.setNome(currentUser.getUid());
+                    garcom.putExtra("usuario", user);
+                    startActivity(garcom);
                 }
-            } else {
-                Intent garcom = new Intent(this, PainelGarcom.class);
-                String nome = currentUser.getDisplayName();
-                garcom.putExtra("nome", nome);
-                startActivity(garcom);
             }
 
         }
@@ -101,36 +112,13 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("ALCM", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("ALCM", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(Login.this, "Authentication failed.",
+                            Toast.makeText(Login.this, "Usuario Incorreto",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
                         }
-
-                        // ...
                     }
                 });
-    }
-
-    public void login(boolean admin) {
-        if(admin) {
-            Intent intent = new Intent(this, PainelAdmin.class);
-            intent.putExtra("nome", etEmail.getText().toString());
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(this, PainelGarcom.class);
-            intent.putExtra("nome", etEmail.getText().toString());
-            startActivity(intent);
-        }
-
-
-
-
     }
 }

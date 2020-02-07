@@ -11,11 +11,15 @@ import com.example.caixakioske.R;
 public class GavetaPedido extends RecyclerView.ViewHolder {
 
     public TextView tvNomeProduto;
+    public TextView tvprecoProduto;
+    public TextView tvQuantidade;
 
     public GavetaPedido(@NonNull View itemView) {
         super(itemView);
 
-        this.tvNomeProduto = itemView.findViewById(R.id.tvPedidoMesa);
+        this.tvNomeProduto = itemView.findViewById(R.id.tvNomeProdutoPedido);
+        this.tvprecoProduto = itemView.findViewById(R.id.tvValorProdutos);
+        this.tvQuantidade = itemView.findViewById(R.id.tvQuantidade);
 
     }
 

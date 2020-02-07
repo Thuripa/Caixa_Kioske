@@ -1,13 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="222dp"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout3"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    tools:layout_editor_absoluteY="81dp">
 
     <TextView
-        android:id="@+id/tvPedidoMesa"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Produtos"
-        android:textColor="#FFFFFF" />
-</LinearLayout>
+        android:id="@+id/tvQuantidade"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="7dp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvNomeProdutoPedido"
+        android:layout_width="114dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="7dp"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/tvQuantidade"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvValorProdutos"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="7dp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toEndOf="@+id/tvNomeProdutoPedido"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

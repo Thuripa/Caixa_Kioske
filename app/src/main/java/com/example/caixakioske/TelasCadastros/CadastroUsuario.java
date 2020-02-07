@@ -1,4 +1,4 @@
-package com.example.caixakioske.Telas_Cadastros;
+package com.example.caixakioske.TelasCadastros;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,21 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.caixakioske.Login;
-import com.example.caixakioske.R;
 import com.example.caixakioske.Modelos.Usuario;
+import com.example.caixakioske.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 
 public class CadastroUsuario extends AppCompatActivity {
 
@@ -34,6 +28,7 @@ public class CadastroUsuario extends AppCompatActivity {
     Button btnRegistrar;
     EditText etEmailReg;
     EditText etSenhaReg;
+    Usuario usuario;
 
     private FirebaseAuth mAuth;
     DatabaseReference reff;
@@ -71,19 +66,14 @@ public class CadastroUsuario extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("ALCM", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("ALCM", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(CadastroUsuario.this, "Authentication failed.",
+                            Log.d("ALCM", "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(CadastroUsuario.this, "Erro no Cadastro!",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
                         }
-
-                        // ...
                     }
                 });
     }
@@ -92,27 +82,8 @@ public class CadastroUsuario extends AppCompatActivity {
 
         if(currentUser != null) {
             Intent intent = new Intent(this, Login.class);
-            intent.putExtra("email", currentUser.getEmail());
-        } else {
-            Intent intent = new Intent(this, Login.class);
+            intent.putExtra("usuario", usuario);
             startActivity(intent);
-        }
-
-    }
-
-    public void registrar(String nome, String senha) {
-
-        if (nome != null && senha != null) {
-
-           Usuario usuario = new Usuario(nome, senha, false);
-           reff.push().setValue(usuario);
-            Toast.makeText(this, "Usuario Cadastrado", Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent(this, Login.class);
-            intent.putExtra("nome", usuario.getNome());
-            startActivity(intent);
-        } else {
-            Toast.makeText(this, "Insira Nome e Senha", Toast.LENGTH_SHORT).show();
         }
 
     }

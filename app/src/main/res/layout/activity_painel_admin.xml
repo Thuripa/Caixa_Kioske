@@ -8,57 +8,71 @@
     tools:context=".PainelAdmin">
 
     <Button
-        android:id="@+id/btnMesas"
+        android:id="@+id/btnCaixa"
         android:layout_width="253dp"
         android:layout_height="62dp"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="158dp"
-        android:text="@string/Mesas"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnProdutos" />
-
-    <Button
-        android:id="@+id/btnProdutos"
-        android:layout_width="253dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="158dp"
-        android:text="@string/Produtos"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="33dp"
+        android:text="@string/Caixa"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnPedidos" />
 
     <Button
+        android:id="@+id/btnMesasAdmin"
+        android:layout_width="253dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="33dp"
+        android:text="@string/Mesas"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCaixa" />
+
+    <Button
+        android:id="@+id/btnProdutos"
+        android:layout_width="253dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="89dp"
+        android:text="@string/Produtos"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnMesasAdmin" />
+
+    <Button
         android:id="@+id/btnPedidos"
         android:layout_width="253dp"
         android:layout_height="62dp"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="112dp"
-        android:layout_marginEnd="158dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="33dp"
         android:text="@string/Pedidos"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPainelAdmin" />
 
     <TextView
-        android:id="@+id/tvNomeUsuario"
+        android:id="@+id/tvPainelAdmin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="334dp"
-        android:text="@string/Nome"
+        android:layout_marginStart="73dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="72dp"
+        android:text="@string/Painel_Admin"
         android:textColor="#FFFFFF"
-        android:textSize="24sp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

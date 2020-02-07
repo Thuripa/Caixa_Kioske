@@ -10,9 +10,15 @@
                 android:title="@string/Bebidas" />
             <item android:id="@+id/menu_filtro_comidas"
                 android:title="@string/Comidas" />
-            <item android:id="@+id/menu_filtro_outros"
-                android:title="@string/outros" />
+            <item android:id="@+id/menu_filtro_kioske"
+                android:title="@string/Kioske" />
         </menu>
+    </item>
+
+    <item android:id="@+id/menu_voltar_produtos"
+            android:title="@string/Voltar"
+        app:showAsAction="never"
+        >
     </item>
 
 

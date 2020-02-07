@@ -5,42 +5,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3DA507"
-    tools:context=".Pedidos">
+    tools:context=".Caixa">
 
     <TextView
-        android:id="@+id/tvPedidos"
+        android:id="@+id/tvCaixa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="106dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="106dp"
-        android:text="@string/Pedidos"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="161dp"
+        android:text="@string/Caixa"
         android:textColor="#FFFFFF"
-        android:textSize="30sp"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvPedidos"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginBottom="17dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/rvPedido"
+        android:layout_width="319dp"
+        android:layout_height="421dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="46dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPedidos" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCaixa" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/foabAdicionarPedido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="52dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

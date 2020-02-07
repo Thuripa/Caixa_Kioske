@@ -13,10 +13,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.example.caixakioske.Telas_Cadastros.CadastroProduto;
+import com.example.caixakioske.Adaptadores.ListenerGavetaProduto;
+import com.example.caixakioske.TelasCadastros.CadastroProduto;
 import com.example.caixakioske.Modelos.GavetaProduto;
 import com.example.caixakioske.Modelos.Produto;
+import com.example.caixakioske.TelasCadastros.EditarProduto;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,12 +32,14 @@ public class Produtos extends AppCompatActivity {
     RecyclerView rvProdutos;
     FloatingActionButton foabNovoProduto;
     FirebaseRecyclerAdapter adapter;
+    Intent intent;
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        intent = getIntent();
 
         setContentView(R.layout.activity_produtos);
 
@@ -61,6 +66,7 @@ public class Produtos extends AppCompatActivity {
                 // Create a new instance of the ViewHolder, in this case we are using a custom
                 View view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.gaveta_produtos, parent, false);
+                view.setBackgroundColor(0);
 
                 return new GavetaProduto(view);
             }
@@ -77,6 +83,26 @@ public class Produtos extends AppCompatActivity {
         rvProdutos = findViewById(R.id.rvProdutos);
         rvProdutos.setHasFixedSize(true);
 
+        rvProdutos.addOnItemTouchListener(new ListenerGavetaProduto(this, rvProdutos, new ListenerGavetaProduto.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+                Produto produto = getItemPosition(position);
+
+                //Toast.makeText(Bebidas.this, "Vindo de produtos", Toast.LENGTH_SHORT).show();
+                Intent editarProduto = new Intent(Produtos.this, EditarProduto.class);
+                editarProduto.putExtra("produto", produto);
+                editarProduto.putExtra("caminho", "produtos");
+                startActivity(editarProduto);
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                //Toast.makeText(Kioske.this,  position+ " is PRESSED successfully", Toast.LENGTH_SHORT).show();
+            }
+        }));
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rvProdutos.setLayoutManager(layoutManager);
 
@@ -91,6 +117,14 @@ public class Produtos extends AppCompatActivity {
             }
         });
 
+    }
+
+    private Produto getItemPosition(int position) {
+        if(adapter != null) {
+            return (Produto) adapter.getItem(position);
+        } else {
+            return null;
+        }
     }
 
     private void novoProduto() {
@@ -133,10 +167,13 @@ public class Produtos extends AppCompatActivity {
             Intent comidas = new Intent(this, Comidas.class);
             comidas.putExtra("caminho", "produtos");
             startActivity(comidas);
-        } else if(item.getItemId() == R.id.menu_filtro_outros) {
+        } else if(item.getItemId() == R.id.menu_filtro_kioske) {
             Intent outros = new Intent(this, Kioske.class);
             outros.putExtra("caminho", "produtos");
             startActivity(outros);
+        } else if(item.getItemId() == R.id.menu_voltar_produtos) {
+            Intent intent = new Intent(this, PainelAdmin.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

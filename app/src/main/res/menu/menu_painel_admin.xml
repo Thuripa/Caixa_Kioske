@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_conta_admin"
+        android:title="@string/Conta"
+        >
+        <menu>
+            <item android:id="@+id/menu_admin_dados"
+                android:title="@string/Dados" />
+            <item android:id="@+id/menu_admin_trocar_senha"
+                android:title="@string/Trocar_Senha" />
+            <item android:id="@+id/menu_admin_sair_da_conta"
+                android:title="@string/Logout" />
+        </menu>
+    </item>
+</menu>
