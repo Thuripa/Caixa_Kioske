@@ -16,14 +16,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.caixakioske.Adaptadores.FirebaseDAO;
-import com.example.caixakioske.Adaptadores.ListenerGavetaProduto;
+import com.example.caixakioske.Adaptadores.ListenerGavetas;
 import com.example.caixakioske.Modelos.GavetaProduto;
 import com.example.caixakioske.Modelos.Produto;
 import com.example.caixakioske.TelasCadastros.EditarProduto;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 public class Kioske extends AppCompatActivity {
@@ -74,7 +72,7 @@ public class Kioske extends AppCompatActivity {
         rvKioske = findViewById(R.id.rvOutros);
         rvKioske.setHasFixedSize(true);
 
-        rvKioske.addOnItemTouchListener(new ListenerGavetaProduto(this, rvKioske, new ListenerGavetaProduto.ClickListener() {
+        rvKioske.addOnItemTouchListener(new ListenerGavetas(this, rvKioske, new ListenerGavetas.ClickListener() {
             @Override
             public void onClick(View view, int position) {
 

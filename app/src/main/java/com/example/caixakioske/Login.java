@@ -24,8 +24,8 @@ public class Login extends AppCompatActivity {
 
     private EditText etEmail;
     private EditText etSenha;
-    private Usuario usuario;
     private FirebaseAuth mAuth;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +40,12 @@ public class Login extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        usuario = getIntent().getParcelableExtra("usuario");
+        intent = getIntent();
 
-        // Auto Completa Email Caso usuario esteja vindo do cadastro
-        if (usuario != null) {
-            etEmail.setText(usuario.getEmail());
+        if(intent.getStringExtra("caminho") != null) {
+            if(intent.getStringExtra("caminho").equals("cadastroUsuario")) {
+                etEmail.setText(mAuth.getCurrentUser().getEmail());
+            }
         }
 
 
@@ -83,21 +84,16 @@ public class Login extends AppCompatActivity {
 
         if(currentUser != null) {
             if(currentUser.getEmail() != null){
-                if(currentUser.getEmail().equals("tainhabichoesperto@gmail.com")){
+                if(currentUser.getEmail().equals("tainhabichoesperto@gmail.com")
+                        || currentUser.getEmail().equals("gabrielps41308@outlook.com")){
+
                     Intent admin = new Intent(this, PainelAdmin.class);
-                    Usuario user = new Usuario();
-                    user.setAdmin(true);
-                    user.setNome(currentUser.getDisplayName());
-                    user.setUid(currentUser.getUid());
-                    admin.putExtra("usuario", user);
+                    admin.putExtra("caminho", "login");
                     startActivity(admin);
+
                 } else {
                     Intent garcom = new Intent(this, PainelGarcom.class);
-                    Usuario user = new Usuario();
-                    user.setAdmin(false);
-                    user.setNome(currentUser.getDisplayName());
-                    user.setNome(currentUser.getUid());
-                    garcom.putExtra("usuario", user);
+                    garcom.putExtra("caminho", "login");
                     startActivity(garcom);
                 }
             }

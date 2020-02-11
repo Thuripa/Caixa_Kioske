@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TelasCadastros.CadastroPedido"></activity>
+        <activity android:name=".TelasPedidos.BebidasPedido"></activity>
+        <activity android:name=".DadosUsuario" />
+        <activity android:name=".TelasCadastros.EditarPedido" />
+        <activity android:name=".TelasCadastros.CadastroPedido" />
         <activity android:name=".TelasCadastros.EditarMesa" />
         <activity android:name=".TelasCadastros.EditarProduto" />
         <activity android:name=".Caixa" />

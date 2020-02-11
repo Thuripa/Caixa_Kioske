@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:id="@+id/menu_pedir"
-         android:title="@string/Pedir" />
-    <item android:id="@+id/menu_Cancelar"
+    <item android:id="@+id/menu_pedir_pedido"
+        android:title="@string/fazer_pedido" />
+    <item android:id="@+id/menu_Cancelar_pedido"
         android:title="@string/Cancelar" />
-
 </menu>

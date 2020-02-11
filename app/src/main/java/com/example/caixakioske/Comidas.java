@@ -16,14 +16,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.caixakioske.Adaptadores.FirebaseDAO;
-import com.example.caixakioske.Adaptadores.ListenerGavetaProduto;
+import com.example.caixakioske.Adaptadores.ListenerGavetas;
 import com.example.caixakioske.Modelos.GavetaProduto;
 import com.example.caixakioske.Modelos.Produto;
 import com.example.caixakioske.TelasCadastros.EditarProduto;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 public class Comidas extends AppCompatActivity {
@@ -39,9 +37,9 @@ public class Comidas extends AppCompatActivity {
 
         intent = getIntent();
 
-        // Cria Querry Pegando Todos os Produtos de Tipo "Bebidas" do DB
+        // Cria Querry Pegando Todos os Produtos de Tipo "Comidas" do DB
         FirebaseDAO dao = new FirebaseDAO();
-        Query query = dao.read("produtos", "tipo", "bebidas");
+        Query query = dao.read("produtos", "tipo", "comidas");
 
         // Constroi a Configuracao do AdaptadorProdutosRealm
         FirebaseRecyclerOptions<Produto> options =
@@ -73,7 +71,7 @@ public class Comidas extends AppCompatActivity {
         rvComidas = findViewById(R.id.rvComidas);
         rvComidas.setHasFixedSize(true);
 
-        rvComidas.addOnItemTouchListener(new ListenerGavetaProduto(this, rvComidas, new ListenerGavetaProduto.ClickListener() {
+        rvComidas.addOnItemTouchListener(new ListenerGavetas(this, rvComidas, new ListenerGavetas.ClickListener() {
             @Override
             public void onClick(View view, int position) {
 

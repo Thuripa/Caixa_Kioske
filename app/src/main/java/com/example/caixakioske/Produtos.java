@@ -13,9 +13,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.caixakioske.Adaptadores.ListenerGavetaProduto;
+import com.example.caixakioske.Adaptadores.ListenerGavetas;
 import com.example.caixakioske.TelasCadastros.CadastroProduto;
 import com.example.caixakioske.Modelos.GavetaProduto;
 import com.example.caixakioske.Modelos.Produto;
@@ -83,7 +82,7 @@ public class Produtos extends AppCompatActivity {
         rvProdutos = findViewById(R.id.rvProdutos);
         rvProdutos.setHasFixedSize(true);
 
-        rvProdutos.addOnItemTouchListener(new ListenerGavetaProduto(this, rvProdutos, new ListenerGavetaProduto.ClickListener() {
+        rvProdutos.addOnItemTouchListener(new ListenerGavetas(this, rvProdutos, new ListenerGavetas.ClickListener() {
             @Override
             public void onClick(View view, int position) {
 

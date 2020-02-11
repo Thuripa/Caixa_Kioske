@@ -8,60 +8,85 @@ import java.util.Date;
 
 public class Pedido implements Parcelable {
 
-    private String nomeGarcom;
-    private ArrayList<Produto> produtos;
-    private ArrayList<Integer> quantidades;
+    private String id_pedido;
+    private String atendente;
     private Date data;
+    private ArrayList<Ordem> ordems;
+    private boolean pronto;
 
 
     public Pedido() {
 
     }
 
-    public Pedido(String nomeGarcom, ArrayList<Produto> produtos, Date data) {
+    public Pedido(String id_pedido, String atendente, Date data, ArrayList<Ordem> ordems) {
 
-        this.nomeGarcom = nomeGarcom;
+        this.id_pedido = id_pedido;
+        this.atendente = atendente;
         this.data = data;
-        this.produtos = produtos;
+        this.ordems = ordems;
+        this.pronto = false;
 
     }
 
     // GETTERS E SETTERS
 
-    public String getNomeGarcom() {
-        return nomeGarcom;
+    public void setId_pedido(String  id_pedido) {
+        this.id_pedido = id_pedido;
     }
 
-    public void setNomeGarcom(String nomeGarcom) {
-        this.nomeGarcom = nomeGarcom;
+    public String getId_pedido() {
+        return id_pedido;
     }
 
-    public ArrayList<Produto> getProdutos() {
-        return produtos;
+    public String getAtendente() {
+        return atendente;
     }
 
-    public void setProdutos(ArrayList<Produto> produtos) {
-        this.produtos = produtos;
+    public void setAtendente(String atendente) {
+        this.atendente = atendente;
     }
 
     public Date getData() {
         return data;
     }
 
+    public void setOrdems(ArrayList<Ordem> ordems) {
+        this.ordems = ordems;
+    }
+
+    public ArrayList<Ordem> getOrdems() {
+        return ordems;
+    }
+
     public void setData(Date data) {
         this.data = data;
     }
 
-    private Pedido(Parcel in) {
-        nomeGarcom = in.readString();
-        if (in.readByte() == 0x01) {
-            produtos = new ArrayList<>();
-            in.readList(produtos, Produto.class.getClassLoader());
-        } else {
-            produtos = null;
-        }
+    public void setDataAgora() {
+        this.data = new Date();
+    }
+
+    public void setPronto(boolean pronto) {
+        this.pronto = pronto;
+    }
+
+    public boolean isPronto() {
+        return pronto;
+    }
+
+    protected Pedido(Parcel in) {
+        id_pedido = in.readString();
+        atendente = in.readString();
         long tmpData = in.readLong();
         data = tmpData != -1 ? new Date(tmpData) : null;
+        if (in.readByte() == 0x01) {
+            ordems = new ArrayList<Ordem>();
+            in.readList(ordems, Ordem.class.getClassLoader());
+        } else {
+            ordems = null;
+        }
+        pronto = in.readByte() != 0x00;
     }
 
     @Override
@@ -71,14 +96,16 @@ public class Pedido implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(nomeGarcom);
-        if (produtos == null) {
+        dest.writeString(id_pedido);
+        dest.writeString(atendente);
+        dest.writeLong(data != null ? data.getTime() : -1L);
+        if (ordems == null) {
             dest.writeByte((byte) (0x00));
         } else {
             dest.writeByte((byte) (0x01));
-            dest.writeList(produtos);
+            dest.writeList(ordems);
         }
-        dest.writeLong(data != null ? data.getTime() : -1L);
+        dest.writeByte((byte) (pronto ? 0x01 : 0x00));
     }
 
     @SuppressWarnings("unused")

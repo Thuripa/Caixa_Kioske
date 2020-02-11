@@ -82,7 +82,7 @@ public class CadastroUsuario extends AppCompatActivity {
 
         if(currentUser != null) {
             Intent intent = new Intent(this, Login.class);
-            intent.putExtra("usuario", usuario);
+            intent.putExtra("caminho", "cadastroUsuario");
             startActivity(intent);
         }
 

@@ -10,23 +10,27 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.example.caixakioske.Adaptadores.ListenerGavetaProduto;
+import com.example.caixakioske.Adaptadores.ListenerGavetas;
 import com.example.caixakioske.Modelos.GavetaMesa;
 import com.example.caixakioske.Modelos.Mesa;
-import com.example.caixakioske.Modelos.Produto;
 import com.example.caixakioske.TelasCadastros.CadastroMesa;
-import com.example.caixakioske.TelasCadastros.EditarProduto;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 public class Mesas extends AppCompatActivity {
 
-    String uid;
+    private FirebaseAuth mAuth;
+
+    FirebaseUser usuario;
+    String email;
     String caminho;
     RecyclerView rvMesas;
     FloatingActionButton foabAdicionarMesa;
@@ -37,14 +41,33 @@ public class Mesas extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mesas);
 
-        // Pega Referencia do Banco de Dados
+        // Instancia FireBase Auth
+        mAuth = FirebaseAuth.getInstance();
 
+        // Pega Intent
+        Intent intent = getIntent();
+
+        // Verifica o Caminho
+        if(intent.getStringExtra("caminho") != null) {
+            caminho = getIntent().getStringExtra("caminho");
+        }
+
+        // Pega Usuario
+        usuario = mAuth.getCurrentUser();
+
+        if(usuario == null) {
+            Toast.makeText(this, "Necessário Logar", Toast.LENGTH_SHORT).show();
+            Intent login = new Intent(this, Login.class);
+            startActivity(login);
+        }
+
+        // Pega Referencia do Banco de Dados
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 
-        uid = getIntent().getStringExtra("uid");
-        caminho = getIntent().getStringExtra("caminho");
-
         // Cria Querry Pegando Todos as Mesas do DB Filtrado pela UID
+
+        String uid = usuario.getUid();
+
         Query query = rootRef
                 .child("mesas")
                 .orderByChild("idAtendente")
@@ -81,7 +104,7 @@ public class Mesas extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rvMesas.setLayoutManager(layoutManager);
 
-        rvMesas.addOnItemTouchListener(new ListenerGavetaProduto(this, rvMesas, new ListenerGavetaProduto.ClickListener() {
+        rvMesas.addOnItemTouchListener(new ListenerGavetas(this, rvMesas, new ListenerGavetas.ClickListener() {
             @Override
             public void onClick(View view, int position) {
 
@@ -125,7 +148,6 @@ public class Mesas extends AppCompatActivity {
 
     public void adicionarMesa() {
         Intent intent = new Intent(this, CadastroMesa.class);
-        intent.putExtra("uid", uid);
         startActivity(intent);
     }
 

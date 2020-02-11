@@ -58,4 +58,11 @@
     <string name="Logout">Logout</string>
     <string name="Cadastro_Pedido">Cadastro Pedido</string>
     <string name="Email_dois_pontos">Email:</string>
+    <string name="dados_do_usu_rio">Dados do Usuário</string>
+    <string name="email">Email:</string>
+    <string name="acesso">Acesso:</string>
+    <string name="Opcional">Opcional</string>
+    <string name="ver_pedido">Ver Pedido</string>
+    <string name="pedidonum">PedidoNum</string>
+    <string name="fazer_pedido">Fazer Pedido</string>
 </resources>

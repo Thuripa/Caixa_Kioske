@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,14 +19,13 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.example.caixakioske.Adaptadores.FirebaseDAO;
-import com.example.caixakioske.Adaptadores.ListenerGavetaProduto;
-import com.example.caixakioske.Adaptadores.NumberPickerDialog;
+import com.example.caixakioske.Adaptadores.ListenerGavetas;
 import com.example.caixakioske.Modelos.GavetaProduto;
+import com.example.caixakioske.Modelos.Ordem;
 import com.example.caixakioske.Modelos.Produto;
 import com.example.caixakioske.TelasCadastros.EditarProduto;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
@@ -41,6 +39,8 @@ public class Bebidas extends AppCompatActivity implements NumberPicker.OnValueCh
     int quantidade;
     ArrayList<Produto> produtos = new ArrayList<>();
     ArrayList<Integer> quantidades = new ArrayList<>();
+    ArrayList<Ordem> ordems = new ArrayList<>();
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,7 @@ public class Bebidas extends AppCompatActivity implements NumberPicker.OnValueCh
         setContentView(R.layout.activity_bebidas);
 
         intent = getIntent();
+        uid = intent.getStringExtra("uid");
 
         // Cria Querry Pegando Todos os Produtos de Tipo "Bebidas" do DB
         FirebaseDAO dao = new FirebaseDAO();
@@ -85,7 +86,7 @@ public class Bebidas extends AppCompatActivity implements NumberPicker.OnValueCh
         rvBebidas.setHasFixedSize(true);
 
         // add a listener to click and long click
-        rvBebidas.addOnItemTouchListener(new ListenerGavetaProduto(this, rvBebidas, new ListenerGavetaProduto.ClickListener() {
+        rvBebidas.addOnItemTouchListener(new ListenerGavetas(this, rvBebidas, new ListenerGavetas.ClickListener() {
             @Override
             public void onClick(View view, int position) {
 
@@ -103,7 +104,7 @@ public class Bebidas extends AppCompatActivity implements NumberPicker.OnValueCh
                             startActivity(editarProduto);
 
                         } else if (caminho.equals("categorias")){
-                            Toast.makeText(Bebidas.this, "Vindo de categorias", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Bebidas.this, "Segure para Adicionar Quantidade", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -129,37 +130,46 @@ public class Bebidas extends AppCompatActivity implements NumberPicker.OnValueCh
 
                         } else if (caminho.equals("categorias")){
 
-                            NumberPicker numberPicker = new NumberPicker(Bebidas.this);
-                            numberPicker.setMinValue(0);
-                            numberPicker.setMaxValue(20);
+                            if(uid != null && !uid.isEmpty()) {
+                                NumberPicker numberPicker = new NumberPicker(Bebidas.this);
+                                numberPicker.setMinValue(0);
+                                numberPicker.setMaxValue(20);
 
-                            NumberPicker.OnValueChangeListener onValueChangeListener = new NumberPicker.OnValueChangeListener() {
-                                @Override
-                                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                                    quantidade = newVal;
-                                }
-                            };
+                                NumberPicker.OnValueChangeListener onValueChangeListener = new NumberPicker.OnValueChangeListener() {
+                                    @Override
+                                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                                        quantidade = newVal;
+                                    }
+                                };
 
-                            numberPicker.setOnValueChangedListener(onValueChangeListener);
+                                numberPicker.setOnValueChangedListener(onValueChangeListener);
 
-                            final AlertDialog.Builder builder = new AlertDialog.Builder(Bebidas.this).setView(numberPicker);
-                            builder.setTitle("Quantidade");
-                            builder.setPositiveButton(R.string.Adicionar, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    produtos.add(produto);
-                                    quantidades.add(quantidade);
-                                }
-                            });
+                                final AlertDialog.Builder builder = new AlertDialog.Builder(Bebidas.this).setView(numberPicker);
+                                builder.setTitle("Quantidade");
+                                builder.setPositiveButton(R.string.Adicionar, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        produtos.add(produto);
+                                        quantidades.add(quantidade);
+                                        instanciaOrdem(produto, quantidade);
+                                    }
+                                });
 
-                            builder.setNegativeButton(R.string.Cancelar, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            });
+                                builder.setNegativeButton(R.string.Cancelar, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
 
-                            builder.show();
+                                builder.show();
+
+                            } else {
+                                Toast.makeText(Bebidas.this, "Autenticação Necessária", Toast.LENGTH_SHORT).show();
+                                Intent login = new Intent(Bebidas.this, Login.class);
+                                startActivity(login);
+                            }
+
                         }
                     }
                 }
@@ -173,6 +183,17 @@ public class Bebidas extends AppCompatActivity implements NumberPicker.OnValueCh
         adapter.startListening();
 
 
+
+    }
+
+    private void instanciaOrdem(Produto produto, int quantidade) {
+        Ordem ordem = new Ordem();
+        ordem.setProduto(produto);
+        ordem.setQuantidade(quantidade);
+        Float preco = ordem.getPrecoTotal();
+        ordem.setValorTotal(preco);
+
+        ordems.add(ordem);
 
     }
 
@@ -258,13 +279,6 @@ public class Bebidas extends AppCompatActivity implements NumberPicker.OnValueCh
     }
 
     @Override
-    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-        Toast.makeText(this,
-                "selected number " + picker.getValue(), Toast.LENGTH_SHORT).show();
-
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_voltar, menu);
@@ -277,5 +291,10 @@ public class Bebidas extends AppCompatActivity implements NumberPicker.OnValueCh
             retornaActivityAnterior();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+        // bla :P
     }
 }

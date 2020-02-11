@@ -4,37 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout3"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="20dp"
     tools:layout_editor_absoluteY="81dp">
 
     <TextView
-        android:id="@+id/tvQuantidade"
-        android:layout_width="20dp"
+        android:id="@+id/TvPedidoNum"
+        android:layout_width="106dp"
         android:layout_height="20dp"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="7dp"
-        android:textColor="#FFFFFF"
+        android:layout_marginStart="8dp"
+        android:text="@string/pedidonum"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/tvNomeProdutoPedido"
-        android:layout_width="114dp"
+        android:id="@+id/tvEmailPedido"
+        android:layout_width="182dp"
         android:layout_height="20dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="7dp"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/tvQuantidade"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvValorProdutos"
-        android:layout_width="40dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="7dp"
-        android:textColor="#FFFFFF"
-        app:layout_constraintStart_toEndOf="@+id/tvNomeProdutoPedido"
+        android:layout_marginEnd="8dp"
+        android:text="@string/Email"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

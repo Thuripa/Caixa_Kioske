@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.caixakioske.Modelos.Produto;
 import com.example.caixakioske.Modelos.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,8 +26,7 @@ public class PainelAdmin extends AppCompatActivity {
     Button btnProdutos;
     Button btnPedidos;
     Button btnMesas;
-    Usuario usuario;
-    String uid;
+    FirebaseUser usuario;
     String caminho;
 
     @Override
@@ -33,23 +34,24 @@ public class PainelAdmin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_painel_admin);
 
+        // Instancia FireBase Auth
         mAuth = FirebaseAuth.getInstance();
 
+        // Pega Intent
         Intent intent = getIntent();
 
-        usuario = intent.getParcelableExtra("usuario");
-
-        FirebaseUser user = mAuth.getCurrentUser();
-
-        if (usuario != null) {
-            uid = usuario.getUid();
-            Toast.makeText(this, "Nome:"+user.getDisplayName(), Toast.LENGTH_SHORT).show();
-        }
-
-
+        // Verifica o Caminho
         if(intent.getStringExtra("caminho") != null) {
             caminho = getIntent().getStringExtra("caminho");
-            uid = getIntent().getStringExtra("uid");
+        }
+
+        // Pega Usuario
+        usuario = mAuth.getCurrentUser();
+
+        if(usuario == null) {
+            Toast.makeText(this, "Necessário Logar", Toast.LENGTH_SHORT).show();
+            Intent login = new Intent(this, Login.class);
+            startActivity(login);
         }
 
         btnProdutos = findViewById(R.id.btnProdutos);
@@ -81,7 +83,7 @@ public class PainelAdmin extends AppCompatActivity {
     private void mesas() {
 
         Intent intent = new Intent(this, Mesas.class);
-        intent.putExtra("uid", uid);
+        intent.putExtra("usuario", usuario);
         intent.putExtra("caminho", "painelAdmin");
         startActivity(intent);
 
@@ -90,14 +92,16 @@ public class PainelAdmin extends AppCompatActivity {
     private void pedidos() {
 
         Intent intent = new Intent(this, Pedidos.class);
+        intent.putExtra("email", usuario.getEmail());
         intent.putExtra("caminho", "painelAdmin");
-        intent.putExtra("uid", uid);
         startActivity(intent);
 
     }
 
     private void produtos() {
         Intent intent = new Intent(this, Produtos.class);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("caminho", "painelAdmin");
         startActivity(intent);
     }
 
